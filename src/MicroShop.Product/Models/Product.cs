@@ -1,5 +1,8 @@
 namespace MicroShop.Product.Models;
 
+/// <summary>
+/// Represents a product in the system with properties such as Id, Name, Description, Price, StockQuantity, and CreatedAt.
+/// </summary>
 public class Product
 {
     public Guid Id { get; set; }
