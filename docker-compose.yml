@@ -1,6 +1,6 @@
 services:
   product-db:
-    image: postgres:17
+    image: postgres:17-alpine
     container_name: microshop-product-db
     environment:
       POSTGRES_DB: microshop_products

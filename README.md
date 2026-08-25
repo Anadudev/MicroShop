@@ -1,13 +1,13 @@
 # MicroShop
 
-[![.NET 9](https://img.shields.io/badge/.NET-9.0-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
+[![.NET10](https://img.shields.io/badge/.NET-10-512BD4?logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 [![RabbitMQ](https://img.shields.io/badge/RabbitMQ-3.x-FF6600?logo=rabbitmq&logoColor=white)](https://www.rabbitmq.com/)
 [![Docker](https://img.shields.io/badge/Docker-Compose-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
 [![MassTransit](https://img.shields.io/badge/MassTransit-Event--Driven-orange)](https://masstransit.io/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-**MicroShop** is a distributed, event-driven e-commerce microservices reference application built with **ASP.NET Core (.NET 9)**, **Entity Framework Core**, **PostgreSQL**, **RabbitMQ**, and **Docker**.
+**MicroShop** is a distributed, event-driven e-commerce microservices reference application built with **ASP.NET Core (.NET10)**, **Entity Framework Core**, **PostgreSQL**, **RabbitMQ**, and **Docker**.
 
 The primary objective of this project is to serve as a practical, hands-on implementation of distributed systems patterns, database-per-service isolation, asynchronous event choreography, saga transactions, and containerized local orchestration.
 
@@ -108,9 +108,9 @@ The primary objective of this project is to serve as a practical, hands-on imple
 
 | Layer | Technology | Details |
 | :--- | :--- | :--- |
-| **Runtime & Language** | .NET 9 / C# 13 | High-performance, cross-platform backend runtime |
+| **Runtime & Language** | .NET10 / C# 13 | High-performance, cross-platform backend runtime |
 | **Web Framework** | ASP.NET Core Web API | RESTful controller-based endpoints with OpenAPI/Swagger |
-| **Data Access & ORM** | Entity Framework Core 9 | Code-First migrations with Npgsql PostgreSQL provider |
+| **Data Access & ORM** | Entity Framework Core10 | Code-First migrations with Npgsql PostgreSQL provider |
 | **Database** | PostgreSQL 17 | Dedicated containerized relational databases per service |
 | **Message Broker** | RabbitMQ | AMQP message broker for distributed event dispatching |
 | **Service Bus Library** | MassTransit | Transport abstraction, retry policies, outbox pattern |
@@ -161,7 +161,7 @@ MicroShop/
 ### Prerequisites
 
 Ensure you have the following installed on your machine:
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+- [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10)
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/) or Docker Engine with Docker Compose v2+
 - IDE: [Visual Studio 2022 / 2025](https://visualstudio.microsoft.com/), [JetBrains Rider](https://www.jetbrains.com/rider/), or [VS Code](https://code.visualstudio.com/) with C# Dev Kit
 
@@ -281,7 +281,7 @@ When an operation fails halfway through a distributed transaction (e.g. payment 
 This project is built iteratively following a progressive milestone-driven roadmap:
 
 - [x] **Milestone 1: Service Foundation & Data Isolation**
-  - [x] Solution & project scaffolding (.NET 9)
+  - [x] Solution & project scaffolding (.NET10)
   - [x] Product Service initial Web API implementation
   - [x] PostgreSQL database integration via EF Core & Docker Compose
   - [x] CRUD controllers for product management
