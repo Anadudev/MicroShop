@@ -1,32 +1,24 @@
 using MicroShop.Product.Data;
-using MicroShop.Product.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Microshop.product.controllers;
+namespace MicroShop.Product.Controllers;
 
 [ApiController]
 [Route("api/products")]
-public class ProductsController : ControllerBase
+public class ProductsController(ProductDbContext db) : ControllerBase
 {
-    private readonly ProductDbContext _db;
-
-    public ProductsController(ProductDbContext db)
-    {
-        _db = db;
-    }
-
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+    public async Task<ActionResult<IEnumerable<Models.Product>>> GetProducts()
     {
-        var products = await _db.Products.AsNoTracking().ToListAsync();
+        var products = await db.Products.AsNoTracking().ToListAsync();
         return Ok(products);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<Product>> GetProduct(Guid id)
+    public async Task<ActionResult<Models.Product>> GetProduct(Guid id)
     {
-        var product = await _db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
+        var product = await db.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id);
         if (product is null)
         {
             return NotFound();
@@ -35,21 +27,21 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Product>> CreateProduct(Product product)
+    public async Task<ActionResult<Models.Product>> CreateProduct(Models.Product product)
     {
         product.Id = Guid.NewGuid();
         product.CreatedAt = DateTime.UtcNow;
 
-        _db.Products.Add(product);
-        await _db.SaveChangesAsync();
+        db.Products.Add(product);
+        await db.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<IActionResult> UpdateProduct(Guid id, Product updatedProduct)
+    public async Task<IActionResult> UpdateProduct(Guid id, Models.Product updatedProduct)
     {
-        var product = await _db.Products.FindAsync(id);
+        var product = await db.Products.FindAsync(id);
         if (product is null)
         {
             return NotFound();
@@ -60,7 +52,7 @@ public class ProductsController : ControllerBase
         product.Price = updatedProduct.Price;
         product.StockQuantity = updatedProduct.StockQuantity;
 
-        await _db.SaveChangesAsync();
+        await db.SaveChangesAsync();
 
         return NoContent();
     }
@@ -68,14 +60,14 @@ public class ProductsController : ControllerBase
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> DeleteProduct(Guid id)
     {
-        var product = await _db.Products.FindAsync(id);
+        var product = await db.Products.FindAsync(id);
         if (product is null)
         {
             return NotFound();
         }
 
-        _db.Products.Remove(product);
-        await _db.SaveChangesAsync();
+        db.Products.Remove(product);
+        await db.SaveChangesAsync();
 
         return NoContent();
     }
