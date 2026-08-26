@@ -7,6 +7,8 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<ProductDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("ProductDatabase")));
 
+
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();

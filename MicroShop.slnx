@@ -1,5 +1,10 @@
 <Solution>
-  <Folder Name="/src/">
-    <Project Path="src/MicroShop.Product/MicroShop.Product.csproj" />
+  <Folder Name="/src/Services/" />
+  <Folder Name="/src/Services/Order/">
+    <Project Path="src/Services/Order/MicroShop.Order/MicroShop.Order.csproj" />
+  </Folder>
+  <Folder Name="/src/Services/Order/MicroShop.Oder/" />
+  <Folder Name="/src/Services/Product/">
+    <Project Path="src/Services/Product/MicroShop.Product/MicroShop.Product.csproj" />
   </Folder>
 </Solution>

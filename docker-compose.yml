@@ -10,6 +10,19 @@ services:
       - "5433:5432"
     volumes:
       - product-db-data:/var/lib/postgresql/data
+    
+  order-db:
+    image: postgres:17-alpine
+    container_name: microshop-order-db
+    environment:
+      POSTGRES_DB: microshop_orders
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - order-db-data:/var/lib/postgresql/data
 
 volumes:
   product-db-data:
+  order-db-data:
