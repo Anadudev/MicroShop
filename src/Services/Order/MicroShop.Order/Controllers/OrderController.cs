@@ -1,3 +1,5 @@
+using MassTransit;
+using MicroShop.Contracts.Orders;
 using MicroShop.Order.Clients;
 using MicroShop.Order.Data;
 using MicroShop.Order.DTOs;
@@ -9,10 +11,11 @@ namespace MicroShop.Order.Controllers;
 
 [ApiController]
 [Route("api/orders")]
-public class OrderController(OrderDbContext db, ProductClient productClient) : ControllerBase
+public class OrderController(OrderDbContext db, ProductClient productClient, IPublishEndpoint _publishEndpoint) : ControllerBase
 {
     private readonly OrderDbContext _db = db;
     private readonly ProductClient _productClient = productClient;
+    private readonly IPublishEndpoint _publishEndpoint = _publishEndpoint;
 
     [HttpPost]
     public async Task<ActionResult<Models.Order>> CreateOrder(CreateOrderRequest request)
@@ -51,6 +54,13 @@ public class OrderController(OrderDbContext db, ProductClient productClient) : C
         order.TotalAmount = order.items.Sum(item => item.UnitPrice * item.Quantity);
         _db.Orders.Add(order);
         await _db.SaveChangesAsync();
+        await _publishEndpoint.Publish(
+            new OrderCreated(
+                order.Id,
+                order.CustomerId,
+                order.TotalAmount,
+                order.CreatedAt
+            ));
         return CreatedAtAction(nameof(GetOrder), new { id = order.Id }, order);
     }
 

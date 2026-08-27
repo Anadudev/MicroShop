@@ -22,7 +22,20 @@ services:
       - "5434:5432"
     volumes:
       - order-db-data:/var/lib/postgresql/data
+    
+  rabbitmq:
+    image: rabbitmq:4-management-alpine
+    container_name: microshop-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: microshop
+      RABBITMQ_DEFAULT_PASS: microshop
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
 
 volumes:
   product-db-data:
   order-db-data:
+  rabbitmq-data:
