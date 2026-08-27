@@ -1,3 +1,4 @@
+using MassTransit;
 using MicroShop.Order.Clients;
 using MicroShop.Order.Data;
 using Microsoft.EntityFrameworkCore;
@@ -11,6 +12,18 @@ builder.Services.AddHttpClient<ProductClient>(client =>
 {
     client.BaseAddress =
         new Uri(builder.Configuration["ProductService:BaseUrl"] ?? throw new InvalidOperationException());
+});
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("localhost","/",h =>
+        {
+            h.Username("microshop");
+            h.Password("microshop");
+        });
+    });
 });
 
 builder.Services.AddOpenApi();

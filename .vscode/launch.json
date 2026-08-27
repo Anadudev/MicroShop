@@ -1,0 +1,39 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Product Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": ["run", "--project", "src/Services/Product/MicroShop.Product", "--urls", "http://localhost:5001"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Order Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": ["run", "--project", "src/Services/Order/MicroShop.Order", "--urls", "http://localhost:5002"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Notification Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": ["run", "--project", "src/Services/Notification/MicroShop.Notification", "--urls", "http://localhost:5003"],
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch All Microservices",
+      "configurations": [
+        "Product Service",
+        "Order Service",
+        "Notification Service"
+      ]
+    }
+  ]
+}
