@@ -11,11 +11,11 @@ namespace MicroShop.Order.Controllers;
 
 [ApiController]
 [Route("api/orders")]
-public class OrderController(OrderDbContext db, ProductClient productClient, IPublishEndpoint _publishEndpoint) : ControllerBase
+public class OrderController(OrderDbContext db, ProductClient productClient, IPublishEndpoint publishEndpoint) : ControllerBase
 {
     private readonly OrderDbContext _db = db;
     private readonly ProductClient _productClient = productClient;
-    private readonly IPublishEndpoint _publishEndpoint = _publishEndpoint;
+    private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
 
     [HttpPost]
     public async Task<ActionResult<Models.Order>> CreateOrder(CreateOrderRequest request)
