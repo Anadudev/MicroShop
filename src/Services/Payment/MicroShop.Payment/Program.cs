@@ -1,10 +1,10 @@
 using MassTransit;
-using MicroShop.Notification.Consumers;
+using MicroShop.Payment.Consumers;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMassTransit(x =>
 {
-    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("notification", false));
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("payment", false));
     x.AddConsumer<OrderCreatedConsumer>();
 
     x.UsingRabbitMq((context, cfg) =>

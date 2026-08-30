@@ -11,6 +11,9 @@
     <Project Path="src/Services/Order/MicroShop.Order/MicroShop.Order.csproj" />
   </Folder>
   <Folder Name="/src/Services/Order/MicroShop.Oder/" />
+  <Folder Name="/src/Services/Payment/">
+    <Project Path="src/Services/Payment/MicroShop.Payment/MicroShop.Payment.csproj" />
+  </Folder>
   <Folder Name="/src/Services/Product/">
     <Project Path="src/Services/Product/MicroShop.Product/MicroShop.Product.csproj" />
   </Folder>

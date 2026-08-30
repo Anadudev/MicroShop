@@ -1,7 +1,7 @@
 using MassTransit;
 using MicroShop.Contracts.Orders;
 
-namespace MicroShop.Notification.Consumers;
+namespace MicroShop.Payment.Consumers;
 
 public class OrderCreatedConsumer : IConsumer<OrderCreated>
 {
@@ -9,7 +9,7 @@ public class OrderCreatedConsumer : IConsumer<OrderCreated>
     {
         var message = context.Message;
         // Handle the OrderCreated event here
-        Console.WriteLine($"Order Created: {message.OrderId} \n Customer: {message.CustomerId} \n Total Amount: {message.TotalAmount} \n Created At: {message.CreatedAt}");
+        Console.WriteLine($"Processing payment for Order ID: {message.OrderId},\nAmount: {message.TotalAmount},\nCustomer ID: {message.CustomerId}");
 
         await Task.CompletedTask;
     }
