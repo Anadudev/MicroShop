@@ -11,12 +11,9 @@ namespace MicroShop.Order.Controllers;
 
 [ApiController]
 [Route("api/orders")]
-public class OrderController(OrderDbContext db, ProductClient productClient, IPublishEndpoint publishEndpoint) : ControllerBase
+public class OrderController(OrderDbContext db, ProductClient productClient, IPublishEndpoint publishEndpoint)
+    : ControllerBase
 {
-    private readonly OrderDbContext _db = db;
-    private readonly ProductClient _productClient = productClient;
-    private readonly IPublishEndpoint _publishEndpoint = publishEndpoint;
-
     [HttpPost]
     public async Task<ActionResult<Models.Order>> CreateOrder(CreateOrderRequest request)
     {
@@ -29,7 +26,7 @@ public class OrderController(OrderDbContext db, ProductClient productClient, IPu
 
         foreach (var item in request.Items)
         {
-            var product = await _productClient.GetProductAsync(item.ProductId);
+            var product = await productClient.GetProductAsync(item.ProductId);
             if (product is null)
             {
                 return BadRequest($"Product {item.ProductId} not found");
@@ -52,9 +49,9 @@ public class OrderController(OrderDbContext db, ProductClient productClient, IPu
         }
 
         order.TotalAmount = order.items.Sum(item => item.UnitPrice * item.Quantity);
-        _db.Orders.Add(order);
-        await _db.SaveChangesAsync();
-        await _publishEndpoint.Publish(
+        db.Orders.Add(order);
+        await db.SaveChangesAsync();
+        await publishEndpoint.Publish(
             new OrderCreated(
                 order.Id,
                 order.CustomerId,
@@ -67,7 +64,7 @@ public class OrderController(OrderDbContext db, ProductClient productClient, IPu
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<IEnumerable<Models.Order>>> GetOrder(Guid id)
     {
-        var order = await _db.Orders.Include(order => order.items).FirstOrDefaultAsync(order => order.Id == id);
+        var order = await db.Orders.Include(order => order.items).FirstOrDefaultAsync(order => order.Id == id);
 
         if (order is null)
             return NotFound();

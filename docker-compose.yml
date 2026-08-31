@@ -10,7 +10,7 @@ services:
       - "5433:5432"
     volumes:
       - product-db-data:/var/lib/postgresql/data
-    
+  
   order-db:
     image: postgres:17-alpine
     container_name: microshop-order-db
@@ -23,6 +23,18 @@ services:
     volumes:
       - order-db-data:/var/lib/postgresql/data
     
+  payment-db:
+    image: postgres:17-alpine
+    container_name: microshop-payment-db
+    environment:
+      POSTGRES_DB: microshop_payments
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5435:5432"
+    volumes:
+      - payment-db-data:/var/lib/postgresql/data
+
   rabbitmq:
     image: rabbitmq:4-management-alpine
     container_name: microshop-rabbitmq
@@ -38,4 +50,5 @@ services:
 volumes:
   product-db-data:
   order-db-data:
+  payment-db-data:
   rabbitmq-data:
