@@ -1,6 +1,7 @@
 using MassTransit;
+using MicroShop.Contracts.Orders;
 
-namespace MicroShop.Contracts.Orders;
+namespace MicroShop.Notification.Consumers;
 
 public class OrderCreatedConsumer : IConsumer<OrderCreated>
 {

@@ -1,5 +1,6 @@
 using MassTransit;
 using MicroShop.Order.Clients;
+using MicroShop.Order.Consumers;
 using MicroShop.Order.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,8 @@ builder.Services.AddHttpClient<ProductClient>(client =>
 
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<PaymentFailedConsumer>();
+    x.AddConsumer<PaymentSucceededConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host("localhost","/",h =>

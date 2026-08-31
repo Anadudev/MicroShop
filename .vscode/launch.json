@@ -6,7 +6,13 @@
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
-      "args": ["run", "--project", "src/Services/Product/MicroShop.Product", "--urls", "http://localhost:5001"],
+      "args": [
+        "run",
+        "--project",
+        "src/Services/Product/MicroShop.Product",
+        "--urls",
+        "http://localhost:5001"
+      ],
       "cwd": "${workspaceFolder}"
     },
     {
@@ -14,7 +20,13 @@
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
-      "args": ["run", "--project", "src/Services/Order/MicroShop.Order", "--urls", "http://localhost:5002"],
+      "args": [
+        "run",
+        "--project",
+        "src/Services/Order/MicroShop.Order",
+        "--urls",
+        "http://localhost:5002"
+      ],
       "cwd": "${workspaceFolder}"
     },
     {
@@ -22,7 +34,27 @@
       "type": "coreclr",
       "request": "launch",
       "program": "dotnet",
-      "args": ["run", "--project", "src/Services/Notification/MicroShop.Notification", "--urls", "http://localhost:5003"],
+      "args": [
+        "run",
+        "--project",
+        "src/Services/Notification/MicroShop.Notification",
+        "--urls",
+        "http://localhost:5003"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Payment Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "src/Services/Payment/MicroShop.Payment",
+        "--urls",
+        "http://localhost:5004"
+      ],
       "cwd": "${workspaceFolder}"
     }
   ],
@@ -32,7 +64,8 @@
       "configurations": [
         "Product Service",
         "Order Service",
-        "Notification Service"
+        "Notification Service",
+        "Payment Service"
       ]
     }
   ]
