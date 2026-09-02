@@ -13,20 +13,20 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
     public async Task Consume(ConsumeContext<OrderCreated> context)
     {
         var order = context.Message;
-        var messageId = context.MessageId;
-        if (messageId is null)
-            throw new InvalidOperationException("Message Id missing");
-        var alreadyProcessed = await db.ProcessedMessages.AnyAsync(m => m.MessageId == messageId.Value.ToString());
+        var messageId = context.MessageId ?? throw new InvalidOperationException("Message Id is required");
+        var alreadyProcessed = await db.ProcessedMessages.AnyAsync(m => m.MessageId == messageId.ToString());
         if (alreadyProcessed)
         {
-            Console.WriteLine($"Message {messageId} already processed."); return;
+            Console.WriteLine($"Message {messageId} already processed.");
+            return;
         }
+
         var payment = new Models.Payment
         {
             Id = Guid.NewGuid(),
             OrderId = order.OrderId,
             Amount = order.TotalAmount,
-            Status = Models.PaymentStatus.Pending,
+            Status = PaymentStatus.Pending,
             CreatedAt = DateTime.UtcNow
         };
         db.Payments.Add(payment);
@@ -34,7 +34,7 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
             new ProcessedMessage
             {
                 Id = Guid.NewGuid(),
-                MessageId = messageId.Value.ToString(),
+                MessageId = messageId.ToString(),
             });
         await db.SaveChangesAsync();
 

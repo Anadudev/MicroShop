@@ -21,4 +21,3 @@ public class PaymentFailedConsumer(OrderDbContext db) : IConsumer<PaymentFailed>
         await db.SaveChangesAsync();
     }
 }
-// 

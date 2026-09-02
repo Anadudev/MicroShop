@@ -1,5 +1,19 @@
 {
     "cSpell.words": [
         "microshop"
+    ],
+    "sqltools.connections": [
+        {
+            "ssh": "Disabled",
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5433,
+            "askForPassword": true,
+            "driver": "PostgreSQL",
+            "name": "microshop-product-db",
+            "group": "microshop",
+            "database": "microshop_products",
+            "username": "postgres"
+        }
     ]
 }

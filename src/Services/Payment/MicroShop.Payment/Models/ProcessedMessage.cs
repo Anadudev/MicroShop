@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace MicroShop.Payment.Models;
 
 public class ProcessedMessage
