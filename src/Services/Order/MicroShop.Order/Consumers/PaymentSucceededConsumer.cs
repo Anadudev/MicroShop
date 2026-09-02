@@ -8,17 +8,15 @@ namespace MicroShop.Order.Consumers;
 
 public class PaymentSucceededConsumer(OrderDbContext db) : IConsumer<PaymentSucceeded>
 {
-    private readonly OrderDbContext _db = db;
-    
     public async Task Consume(ConsumeContext<PaymentSucceeded> context)
     {
      var   message = context.Message;
-     var order = await _db.Orders.FirstOrDefaultAsync(o => o.Id == message.OrderId);
+     var order = await db.Orders.FirstOrDefaultAsync(o => o.Id == message.OrderId);
      
      if (order == null)
               return;
      
      order.Status = OrderStatus.Confirmed;
-     await _db.SaveChangesAsync();
+     await db.SaveChangesAsync();
     }
 }
