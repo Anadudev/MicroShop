@@ -18,6 +18,12 @@ builder.Services.AddMassTransit(x =>
                 h.Password("microshop");
             });
 
+        cfg.UseMessageRetry(retry =>
+        {
+            retry.Interval(
+                3,
+                TimeSpan.FromSeconds(5));
+        });
         cfg.ConfigureEndpoints(context);
     });
 });

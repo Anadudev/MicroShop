@@ -6,4 +6,9 @@ public class PaymentDbContext(DbContextOptions<PaymentDbContext> options) : DbCo
 {
     public DbSet<Models.Payment> Payments => Set<Models.Payment>();
     public DbSet<Models.ProcessedMessage> ProcessedMessages => Set<Models.ProcessedMessage>();
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Models.ProcessedMessage>()
+            .HasIndex(p => p.MessageId).IsUnique();
+    }
 }
