@@ -11,6 +11,11 @@ builder.Services.AddMassTransit(x =>
 {
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("payment", false));
     x.AddConsumer<OrderCreatedConsumer>();
+    x.AddEntityFrameworkOutbox<PaymentDbContext>(o =>
+    {
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
 
     x.UsingRabbitMq((context, cfg) =>
     {
