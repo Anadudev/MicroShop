@@ -39,10 +39,11 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
         await db.SaveChangesAsync();
 
         // Simulate payment processing
-        const bool successful = true;
+        var random = new Random();
+        var successful = random.Next(0, 2) == 0; // Randomly decide if payment is successful or not
         if (successful)
         {
-            payment.Status = Models.PaymentStatus.Succeeded;
+            payment.Status = PaymentStatus.Succeeded;
             await db.SaveChangesAsync();
             await publishEndpoint.Publish(
                 new PaymentSucceeded(
@@ -52,7 +53,7 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
         }
         else
         {
-            payment.Status = Models.PaymentStatus.Failed;
+            payment.Status = PaymentStatus.Failed;
             await publishEndpoint.Publish(
                 new PaymentFailed(
                     order.OrderId, payment.Id, order.TotalAmount,
