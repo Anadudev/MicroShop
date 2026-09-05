@@ -5,6 +5,9 @@ using MicroShop.Order.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<OrderDbContext>(options =>
@@ -21,17 +24,28 @@ builder.Services.AddMassTransit(x =>
     x.AddConsumer<PaymentSucceededConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
-        cfg.Host("localhost","/",h =>
+        var rabbitMqConnectionString = builder.Configuration.GetConnectionString("rabbitmq");
+        if (!string.IsNullOrEmpty(rabbitMqConnectionString))
         {
-            h.Username("microshop");
-            h.Password("microshop");
-        });
+            cfg.Host(new Uri(rabbitMqConnectionString));
+        }
+        else
+        {
+            cfg.Host("localhost", "/", h =>
+            {
+                h.Username("microshop");
+                h.Password("microshop");
+            });
+        }
     });
 });
 
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();

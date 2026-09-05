@@ -1,7 +1,9 @@
 <Solution>
+  <Project Path="MicroShop.AppHost/MicroShop.AppHost.csproj" />
   <Folder Name="/src/" />
   <Folder Name="/src/BuildingBlocks/">
     <Project Path="src/BuildingBlocks/MicroShop.Contracts/MicroShop.Contracts.csproj" />
+    <Project Path="src/BuildingBlocks/MicroShop.ServiceDefaults/MicroShop.ServiceDefaults.csproj" />
   </Folder>
   <Folder Name="/src/Services/" />
   <Folder Name="/src/Services/Notification/">
