@@ -2,6 +2,9 @@ using MicroShop.Product.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ProductDbContext>(options =>
@@ -12,6 +15,8 @@ builder.Services.AddDbContext<ProductDbContext>(options =>
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 if (app.Environment.IsDevelopment())
 {
