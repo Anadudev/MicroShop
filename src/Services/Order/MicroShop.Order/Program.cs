@@ -22,6 +22,11 @@ builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<PaymentFailedConsumer>();
     x.AddConsumer<PaymentSucceededConsumer>();
+    x.AddEntityFrameworkOutbox<OrderDbContext>(o =>
+    {
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
     x.UsingRabbitMq((context, cfg) =>
     {
         var rabbitMqConnectionString = builder.Configuration.GetConnectionString("rabbitmq");
