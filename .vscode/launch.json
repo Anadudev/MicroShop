@@ -2,6 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Gateway Service",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "src/Gateway/MicroShop.Gateway",
+        "--urls",
+        "http://localhost:5000"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "Product Service",
       "type": "coreclr",
       "request": "launch",
@@ -62,6 +76,7 @@
     {
       "name": "Launch All Microservices",
       "configurations": [
+        "Gateway Service",
         "Product Service",
         "Order Service",
         "Notification Service",
