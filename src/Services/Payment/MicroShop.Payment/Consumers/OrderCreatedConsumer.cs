@@ -14,13 +14,7 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
     {
         var order = context.Message;
         var messageId = context.MessageId ?? throw new InvalidOperationException("Message Id is required");
-        var alreadyProcessed = await db.ProcessedMessages.AnyAsync(m => m.MessageId == messageId.ToString());
-        if (alreadyProcessed)
-        {
-            Console.WriteLine($"Message {messageId} already processed.");
-            return;
-        }
-
+        
         var payment = new Models.Payment
         {
             Id = Guid.NewGuid(),
@@ -30,12 +24,6 @@ public class OrderCreatedConsumer(PaymentDbContext db, IPublishEndpoint publishE
             CreatedAt = DateTime.UtcNow
         };
         db.Payments.Add(payment);
-        db.ProcessedMessages.Add(
-            new ProcessedMessage
-            {
-                Id = Guid.NewGuid(),
-                MessageId = messageId.ToString(),
-            });
         await db.SaveChangesAsync();
 
         // Simulate payment processing
